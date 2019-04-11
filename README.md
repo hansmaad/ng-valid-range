@@ -1,6 +1,10 @@
 # NgValidRange
 
-A tiny Angular module for range validation on inputs.
+A tiny Angular module for range validation on inputs. https://www.npmjs.com/package/ng-valid-range
+
+```
+npm install ng-valid-range
+```
 
 Example:
 ```html
