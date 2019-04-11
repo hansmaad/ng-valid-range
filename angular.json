@@ -2,5 +2,170 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "ng-valid-range": {
+      "root": "projects/ng-valid-range",
+      "sourceRoot": "projects/ng-valid-range/src",
+      "projectType": "library",
+      "prefix": "ng",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-valid-range/tsconfig.lib.json",
+            "project": "projects/ng-valid-range/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-valid-range/src/test.ts",
+            "tsConfig": "projects/ng-valid-range/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-valid-range/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-valid-range/tsconfig.lib.json",
+              "projects/ng-valid-range/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ng-valid-range-example": {
+      "root": "projects/ng-valid-range-example/",
+      "sourceRoot": "projects/ng-valid-range-example/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ng-valid-range-example",
+            "index": "projects/ng-valid-range-example/src/index.html",
+            "main": "projects/ng-valid-range-example/src/main.ts",
+            "polyfills": "projects/ng-valid-range-example/src/polyfills.ts",
+            "tsConfig": "projects/ng-valid-range-example/tsconfig.app.json",
+            "assets": [
+              "projects/ng-valid-range-example/src/favicon.ico",
+              "projects/ng-valid-range-example/src/assets"
+            ],
+            "styles": [
+              "projects/ng-valid-range-example/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ng-valid-range-example/src/environments/environment.ts",
+                  "with": "projects/ng-valid-range-example/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ng-valid-range-example:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ng-valid-range-example:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ng-valid-range-example:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-valid-range-example/src/test.ts",
+            "polyfills": "projects/ng-valid-range-example/src/polyfills.ts",
+            "tsConfig": "projects/ng-valid-range-example/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-valid-range-example/karma.conf.js",
+            "styles": [
+              "projects/ng-valid-range-example/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/ng-valid-range-example/src/favicon.ico",
+              "projects/ng-valid-range-example/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-valid-range-example/tsconfig.app.json",
+              "projects/ng-valid-range-example/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ng-valid-range-example-e2e": {
+      "root": "projects/ng-valid-range-example-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ng-valid-range-example-e2e/protractor.conf.js",
+            "devServerTarget": "ng-valid-range-example:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ng-valid-range-example:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/ng-valid-range-example-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ng-valid-range"
 }
