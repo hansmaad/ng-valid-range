@@ -15,7 +15,12 @@
             "tsConfig": "projects/ng-valid-range/tsconfig.lib.json",
             "project": "projects/ng-valid-range/ng-package.json"
           }
-        },
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-valid-range/tsconfig.lib.prod.json"
+            }
+          }
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -48,6 +53,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/ng-valid-range-example",
             "index": "projects/ng-valid-range-example/src/index.html",
             "main": "projects/ng-valid-range-example/src/main.ts",
@@ -85,6 +91,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
