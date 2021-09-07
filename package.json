@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod && copyfiles ./README.md ./dist/ng-valid-range/",
+    "publish": "npm run build && npm publish ./dist/ng-units",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

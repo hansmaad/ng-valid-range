@@ -1,6 +1,6 @@
 {
   "name": "ng-valid-range",
-  "version": "10.0.0",
+  "version": "10.1.0",
   "license": "MIT",
   "description": "A tiny Angular module for range validation on inputs.",
   "keywords": ["Angular", "Library"],

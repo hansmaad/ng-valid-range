@@ -36,17 +36,29 @@ export function validRangeFactory(arg: string): ValidatorFn {
         { provide: NG_VALIDATORS, useExisting: NgValidRangeDirective, multi: true }
     ]
 })
-export class NgValidRangeDirective implements Validator, OnInit {
+export class NgValidRangeDirective implements Validator {
+    private validRange: string;
+    private validator: ValidatorFn;
+    private onChange?: () => void;
 
-    @Input() ngValidRange: string;
+    @Input()
+    get ngValidRange(): string {
+        return this.validRange;
+    }
 
-    private validator;
-
-    ngOnInit(): void {
-        this.validator = validRangeFactory(this.ngValidRange);
+    set ngValidRange(value: string) {
+        this.validRange = value;
+        this.validator = validRangeFactory(value);
+        if (this.onChange) {
+            this.onChange();
+        }
     }
 
     validate(c: FormControl) {
-        return this.validator(c);
+        return this.validator ? this.validator(c) : null;
+    }
+
+    registerOnValidatorChange(fn: () => void) {
+        this.onChange = fn;
     }
 }
