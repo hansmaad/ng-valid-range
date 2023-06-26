@@ -1,4 +1,4 @@
-import { Directive, Input, OnInit } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 import { NG_VALIDATORS, Validator, FormControl, ValidatorFn } from '@angular/forms';
 
 
@@ -8,6 +8,9 @@ export function validRangeFactory(arg: string): ValidatorFn {
     }
     const regex = /([\[\]])?(.*),([^\[\]]*)([\[\]])?/;
     const parts = regex.exec(arg);
+    if (!parts) {
+      throw new Error('Invalid ngValidRange argument: ' + arg);
+    }
     const min = +parts[2];
     const max = +parts[3];
     const excludeMin = parts[1] !== '[';
@@ -15,16 +18,16 @@ export function validRangeFactory(arg: string): ValidatorFn {
     const testMin = !!parts[2];
     const testMax = !!parts[3];
 
-    return (c: FormControl) => {
-        const value = +c.value;
-        if (c.value == null || isNaN(value)) {
+    return (control) => {
+        const value = +control.value;
+        if (control.value == null || isNaN(value)) {
             return null;
         }
         if (testMin && (value < min || (excludeMin && value === min))) {
-            return { ngValidRange: { value: c.value, tooSmall: 1, min } };
+            return { ngValidRange: { value: control.value, tooSmall: 1, min } };
         }
         if (testMax && (value > max || (excludeMax && value === max))) {
-            return { ngValidRange: { value: c.value, tooLarge: 1, max } };
+            return { ngValidRange: { value: control.value, tooLarge: 1, max } };
         }
         return null;
     };
@@ -37,8 +40,8 @@ export function validRangeFactory(arg: string): ValidatorFn {
     ]
 })
 export class NgValidRangeDirective implements Validator {
-    private validRange: string;
-    private validator: ValidatorFn;
+    private validRange!: string;
+    private validator!: ValidatorFn;
     private onChange?: () => void;
 
     @Input()

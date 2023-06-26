@@ -3,8 +3,7 @@ import { NgValidRangeDirective } from './ng-valid-range.directive';
 
 @NgModule({
   declarations: [NgValidRangeDirective],
-  imports: [
-  ],
+  imports: [],
   exports: [NgValidRangeDirective]
 })
 export class NgValidRangeModule { }
